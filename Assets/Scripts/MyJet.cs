@@ -11,11 +11,13 @@ public class MyJet : MonoBehaviour
     [SerializeField] float xLimit = 5f;
     [SerializeField] float yLimit = 4f;
     [SerializeField] float pitchFactor = 2f;
-   
+    [SerializeField] float controlPitchFactor = 2f;
+
     [SerializeField] int jetHealth = 10;
     [SerializeField] Text healthValue;
     [SerializeField] Text scoreValue;
 
+    float xInput, yInput;
     float xMovement, yMovement;
     // Start is called before the first frame update
     void Start()
@@ -32,14 +34,15 @@ public class MyJet : MonoBehaviour
 
     private void MoveJet()
     {
-        float xInput = CrossPlatformInputManager.GetAxis("Horizontal");
+        xInput = CrossPlatformInputManager.GetAxis("Horizontal");
         //print("CrossPlatformInputManager.GetAxis HO " + xInput);
         float xRelSpeed = xInput * speed * Time.deltaTime;
         //print(" xInput * speed * Time.deltaTime " + xRelSpeed);
         float xPos = xRelSpeed + transform.localPosition.x;
         xMovement = Mathf.Clamp(xPos, -xLimit, xLimit);
 
-        float yInput = CrossPlatformInputManager.GetAxis("Vertical");
+        yInput = CrossPlatformInputManager.GetAxis("Vertical");
+        print("CrossPlatformInputManager.GetAxis V" + yInput);
         float yRelSpeed = yInput * speed * Time.deltaTime;
         float yPos = yRelSpeed + transform.localPosition.y;
         yMovement = Mathf.Clamp(yPos, -yLimit, yLimit);
@@ -50,7 +53,7 @@ public class MyJet : MonoBehaviour
 
     public void RotateJet()
     {
-        float pitch = yMovement * pitchFactor;
+        float pitch = yMovement * pitchFactor + (yInput* controlPitchFactor);
         float yaw=0f; 
         float roll=0f;
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
