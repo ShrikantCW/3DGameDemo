@@ -12,6 +12,8 @@ public class MyJet : MonoBehaviour
     [SerializeField] float yLimit = 4f;
     [SerializeField] float pitchFactor = 2f;
     [SerializeField] float controlPitchFactor = 2f;
+    [SerializeField] float controlYawFactor = 2f;
+    [SerializeField] float controlRollFactor = 2f;
 
     [SerializeField] int jetHealth = 10;
     [SerializeField] Text healthValue;
@@ -54,8 +56,8 @@ public class MyJet : MonoBehaviour
     public void RotateJet()
     {
         float pitch = yMovement * pitchFactor + (yInput* controlPitchFactor);
-        float yaw=0f; 
-        float roll=0f;
+        float yaw = transform.localPosition.x*controlYawFactor;
+        float roll = xInput * controlRollFactor;
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 

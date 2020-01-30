@@ -6162,11 +6162,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cba08220d9e44e55a7657d7f59f6be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 30
   xLimit: 15
   yLimit: 9
   pitchFactor: -1
   controlPitchFactor: 10
+  controlYawFactor: -5
+  controlRollFactor: 12
   jetHealth: 10
   healthValue: {fileID: 1772764107}
   scoreValue: {fileID: 1747051244}
