@@ -28,18 +28,17 @@ public class MyJet : MonoBehaviour
     void Start()
     {
         score = 0;
-        //healthValue.text = "Health:"+jetHealth.ToString();
-        scoreValue.text = score.ToString();
-        //gameObject.GetComponentInChildren<ParticleSystem>().enableEmission = false;
-
-        
+        healthValue.text = "Health: " + jetHealth.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //To Move Jet horizontal and vertical
         MoveJet();
+        // To rotate jet pitch , yaw and roll axis
         RotateJet();
+        // To hit bullets
         HItBullets();
     }
 
@@ -81,6 +80,7 @@ public class MyJet : MonoBehaviour
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 
+    
     public void OnCollideWithEnemy()
     {
         if(jetHealth>0)
@@ -99,7 +99,8 @@ public class MyJet : MonoBehaviour
 
     public void OnHitLaserToEnemy()
     {
-        scoreValue.text = "Score : "+(score++).ToString();
+        score++;
+        scoreValue.text = "Score : "+score.ToString();
     }
 
     
