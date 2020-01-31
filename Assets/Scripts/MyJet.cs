@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
+using System;
 
 public class MyJet : MonoBehaviour
 {
@@ -21,10 +22,17 @@ public class MyJet : MonoBehaviour
 
     float xInput, yInput;
     float xMovement, yMovement;
+    int score;
+    [SerializeField] GameObject jetParticalObject;
     // Start is called before the first frame update
     void Start()
     {
-        healthValue.text = jetHealth.ToString();
+        score = 0;
+        //healthValue.text = "Health:"+jetHealth.ToString();
+        scoreValue.text = score.ToString();
+        //gameObject.GetComponentInChildren<ParticleSystem>().enableEmission = false;
+
+        
     }
 
     // Update is called once per frame
@@ -32,6 +40,18 @@ public class MyJet : MonoBehaviour
     {
         MoveJet();
         RotateJet();
+        HItBullets();
+    }
+
+    private void HItBullets()
+    {
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            jetParticalObject.SetActive(true);
+        }
+        else
+            jetParticalObject.SetActive(false);
+
     }
 
     private void MoveJet()
@@ -44,7 +64,7 @@ public class MyJet : MonoBehaviour
         xMovement = Mathf.Clamp(xPos, -xLimit, xLimit);
 
         yInput = CrossPlatformInputManager.GetAxis("Vertical");
-        print("CrossPlatformInputManager.GetAxis V" + yInput);
+        //print("CrossPlatformInputManager.GetAxis V" + yInput);
         float yRelSpeed = yInput * speed * Time.deltaTime;
         float yPos = yRelSpeed + transform.localPosition.y;
         yMovement = Mathf.Clamp(yPos, -yLimit, yLimit);
@@ -61,12 +81,14 @@ public class MyJet : MonoBehaviour
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 
-    public void OnEnemyCollide()
+    public void OnCollideWithEnemy()
     {
         if(jetHealth>0)
         {
+            print("Health will decrese to : " + jetHealth);
+
             jetHealth -= 2;
-            healthValue.text = jetHealth.ToString();
+            healthValue.text = "Health : "+jetHealth.ToString();
             if (jetHealth == 0)
             {
                 Destroy(gameObject);
@@ -74,5 +96,11 @@ public class MyJet : MonoBehaviour
         }
 
     }
-   
+
+    public void OnHitLaserToEnemy()
+    {
+        scoreValue.text = "Score : "+(score++).ToString();
+    }
+
+    
 }
