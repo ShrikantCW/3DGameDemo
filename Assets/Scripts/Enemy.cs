@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("trigger with @");
             jet.OnCollideWithEnemy();
             EnemyDestroyPartical.Play();
-            Destroy(gameObject);
+            Invoke("DestroyEnemy", 0.3f);
 
         }
 
@@ -45,12 +45,18 @@ public class Enemy : MonoBehaviour
             Debug.Log("@LAser hit ");
             jet.OnHitLaserToEnemy();
             EnemyDestroyPartical.Play();
-            Destroy(gameObject);
 
+            Invoke("DestroyEnemy", 0.3f);
         }
     }
 
-    
+    void DestroyEnemy()
+    {
+        Destroy(gameObject);
+    }
+
+
+
 
 
 }

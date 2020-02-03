@@ -28,7 +28,8 @@ public class MyJet : MonoBehaviour
     void Start()
     {
         score = 0;
-        healthValue.text = "Health: " + jetHealth.ToString();
+        healthValue.text = "Health : " + jetHealth.ToString();
+        scoreValue.text = "Score : " + score.ToString();
     }
 
     // Update is called once per frame
